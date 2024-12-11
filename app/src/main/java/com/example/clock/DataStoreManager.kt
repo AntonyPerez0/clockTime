@@ -16,6 +16,7 @@ class DataStoreManager(private val context: Context) {
     companion object {
         val CLOCK_IN_TIME_KEY = stringPreferencesKey("clock_in_time")
         val CLOCK_OUT_TIME_KEY = stringPreferencesKey("clock_out_time")
+        val CUSTOM_CLOCK_IN_TIME_KEY = stringPreferencesKey("custom_clock_in_time")
     }
 
     fun getClockInTime(): Flow<String?> {
@@ -46,9 +47,27 @@ class DataStoreManager(private val context: Context) {
             }
     }
 
-    suspend fun saveClockInTime(time: String) {
+    fun getCustomClockInTime(): Flow<String?> {
+        return context.dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences ->
+                preferences[CUSTOM_CLOCK_IN_TIME_KEY]
+            }
+    }
+
+    suspend fun saveClockInTime(time: String?) {
         context.dataStore.edit { preferences ->
-            preferences[CLOCK_IN_TIME_KEY] = time
+            if (!time.isNullOrEmpty()) {
+                preferences[CLOCK_IN_TIME_KEY] = time
+            } else {
+                preferences.remove(CLOCK_IN_TIME_KEY)
+            }
         }
     }
 
@@ -58,6 +77,16 @@ class DataStoreManager(private val context: Context) {
                 preferences[CLOCK_OUT_TIME_KEY] = time
             } else {
                 preferences.remove(CLOCK_OUT_TIME_KEY)
+            }
+        }
+    }
+
+    suspend fun saveCustomClockInTime(time: String?) {
+        context.dataStore.edit { preferences ->
+            if (!time.isNullOrEmpty()) {
+                preferences[CUSTOM_CLOCK_IN_TIME_KEY] = time
+            } else {
+                preferences.remove(CUSTOM_CLOCK_IN_TIME_KEY)
             }
         }
     }
