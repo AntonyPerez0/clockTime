@@ -119,13 +119,13 @@ fun ClockInApp(viewModel: ClockInViewModel) {
                         onClick = { viewModel.resetClockInTime() },
                         enabled = effectiveClockInTime != null || clockOutTime != null || lunchClockInTime != null || lunchClockOutTime != null,
                         modifier = Modifier
-                            .width(160.dp)
+                            .width(200.dp)
                             .height(40.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.error
                         )
                     ) {
-                        Text("Clear Clock-In Time")
+                        Text("Clear Time")
                     }
                 }
 
@@ -209,13 +209,13 @@ fun ClockInApp(viewModel: ClockInViewModel) {
                         },
                         enabled = lunchClockInTime == null || lunchClockOutTime != null,
                         modifier = Modifier
-                            .width(140.dp)
+                            .width(180.dp)
                             .height(40.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.primary
                         )
                     ) {
-                        Text("Lunch Clock In")
+                        Text("Lunch Clock Out")
                     }
 
                     // Lunch Clock Out Button
@@ -226,13 +226,13 @@ fun ClockInApp(viewModel: ClockInViewModel) {
                         },
                         enabled = lunchClockInTime != null && lunchClockOutTime == null,
                         modifier = Modifier
-                            .width(140.dp)
+                            .width(180.dp)
                             .height(40.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.secondary
                         )
                     ) {
-                        Text("Lunch Clock Out")
+                        Text("Lunch Clock In")
                     }
                 }
 

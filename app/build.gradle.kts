@@ -31,8 +31,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-        // Enable desugaring if you use Java 11 features that require it
-        // coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -44,17 +42,17 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0" // Ensure this matches your Compose version
+        kotlinCompilerExtensionVersion = "1.4.0"
     }
 }
 
 dependencies {
     // DataStore for data persistence
-    implementation ("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     // ViewModel
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
     // Core dependencies
     implementation(libs.androidx.core.ktx)
@@ -67,14 +65,12 @@ dependencies {
     implementation(libs.androidx.material3)
 
     // Testing dependencies
-    testImplementation(libs.junit)
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    // If enabling desugaring, uncomment the following line
-    // coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 }
